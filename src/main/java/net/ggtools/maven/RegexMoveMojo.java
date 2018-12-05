@@ -9,21 +9,21 @@ import java.nio.file.StandardCopyOption;
 
 import org.apache.maven.plugins.annotations.Mojo;
 
-@Mojo(name = "regex-copy")
-public class RegexCopyMojo extends AbstractRegexMojo {
+@Mojo(name = "regex-move")
+public class RegexMoveMojo extends AbstractRegexMojo {
 
-    private static final CopyOption[] COPY_OPTIONS_WITH_OVERWRITE = new CopyOption[]{StandardCopyOption.COPY_ATTRIBUTES, StandardCopyOption.REPLACE_EXISTING};
+    private static final CopyOption[] COPY_OPTIONS_WITH_OVERWRITE = new CopyOption[]{StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING};
 
-    private static final CopyOption[] COPY_OPTIONS_WITHOUT_OVERWRITE = new CopyOption[]{StandardCopyOption.COPY_ATTRIBUTES};
+    private static final CopyOption[] COPY_OPTIONS_WITHOUT_OVERWRITE = new CopyOption[]{StandardCopyOption.ATOMIC_MOVE};
     
-    public RegexCopyMojo() {
-		super("regex-copy");
+    public RegexMoveMojo() {
+		super("regex-move");
 	}
     
     @Override
     protected void operateOnResult(Path source, Path target) throws IOException {
         try {
-            Files.copy(source, target, overwrite ? COPY_OPTIONS_WITH_OVERWRITE : COPY_OPTIONS_WITHOUT_OVERWRITE);
+            Files.move(source, target, overwrite ? COPY_OPTIONS_WITH_OVERWRITE : COPY_OPTIONS_WITHOUT_OVERWRITE);
         } catch (FileAlreadyExistsException e) {
             getLog().warn("File " + target + " already exists, skipping");
             getLog().debug(e);

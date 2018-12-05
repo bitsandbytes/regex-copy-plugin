@@ -27,7 +27,7 @@ class RegexFileScannerTest extends Specification {
         expect:
         def results = RegexFileScanner.scan(ROOT_PATH,  "^(net/ggtools)/maven/(.*)\\.java")
         results
-        results.size() == 2
+        results.size() == 4
         def iterator = results.iterator()
         def firstResult = iterator.next()
         firstResult
