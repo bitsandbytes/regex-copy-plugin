@@ -58,7 +58,29 @@ public class RegexCopyMojoTest {
         rule.setVariableValueToObject(mojo, "destinationDirectory", tempDirFile);
         assertThat(rule.getVariablesAndValuesFromObject(mojo)).contains(MapEntry.entry("destinationDirectory", tempDirFile));
         mojo.execute();
+        assertThat(tempDirectory.resolve("AbstractRegexMojo/Test.java").toFile()).exists().isFile();
+        assertThat(tempDirectory.resolve("RegexCopyMojo/Test.java").toFile()).exists().isFile();
+        assertThat(tempDirectory.resolve("RegexFileScanner/Test.java").toFile()).exists().isFile();
+        assertThat(tempDirectory.resolve("RegexMoveMojo/Test.java").toFile()).exists().isFile();
+    }
+
+/*
+    @Test
+    public void testRegexMoveGoal() throws Exception {
+        Path sourceDirectory = Files.createTempDirectory(TARGET_DIRECTORY.toPath(), "regex-move-goal-src");
+        File sourceDirFile = sourceDirectory.toFile();
+        sourceDirFile.deleteOnExit();
+
+        Path targetDirectory = Files.createTempDirectory(TARGET_DIRECTORY.toPath(), "regex-move-goal-tar");
+        File targetDirFile = targetDirectory.toFile();
+        targetDirFile.deleteOnExit();
+
+        Mojo mojo = rule.lookupMojo("regex-copy", pom);
+        rule.setVariableValueToObject(mojo, "destinationDirectory", tempDirFile);
+        assertThat(rule.getVariablesAndValuesFromObject(mojo)).contains(MapEntry.entry("destinationDirectory", tempDirFile));
+        mojo.execute();
         assertThat(tempDirectory.resolve("RegexCopyMojo/Test.java").toFile()).exists().isFile();
         assertThat(tempDirectory.resolve("RegexFileScanner/Test.java").toFile()).exists().isFile();
     }
+*/
 }
